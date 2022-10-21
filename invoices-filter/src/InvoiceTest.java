@@ -38,7 +38,7 @@ public class InvoiceTest {
    */
   @Test
   public void createInvoiceProperly() {
-    client = new Client();
+    client = new Client("Everton Leandro Alves", Calendar.getInstance(), "Paraíba");
     invoice = new Invoice(id, value, date, client);
     
     assertEquals(id, invoice.getId());
