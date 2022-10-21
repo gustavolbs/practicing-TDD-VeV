@@ -19,16 +19,22 @@ public class FilterTest {
   @Test
   public void removeInvoicesSmallerThan2000() {
     Filter filter = new Filter();
+    ArrayList<Invoice> invoices = new ArrayList<Invoice>();
     // Should be empty initially
-    assertEquals(0, filter.result().size());
+    assertEquals(0, filter.result(invoices).size());
+
+    Calendar oneMonthAndADayAgo = Calendar.getInstance();
+    oneMonthAndADayAgo.add(Calendar.MONTH, -1);
+    oneMonthAndADayAgo.add(Calendar.DATE, -1);
+
 
     Client client = new Client(name, date, state);
+
     Invoice invoice1 = new Invoice(id, 400.00, date, client);
     Invoice invoice2 = new Invoice(id, 1999.99, date, client);
-    Invoice invoice3 = new Invoice(id, 2000.00, date, client);
-    Invoice invoice4 = new Invoice(id, 2100.00, date, client);
+    Invoice invoice3 = new Invoice(id, 2000.00, oneMonthAndADayAgo, client);
+    Invoice invoice4 = new Invoice(id, 2100.00, oneMonthAndADayAgo, client);
     
-    ArrayList<Invoice> invoices = new ArrayList<Invoice>();
     invoices.add(invoice1);
     invoices.add(invoice2);
     invoices.add(invoice3);
@@ -85,14 +91,18 @@ public class FilterTest {
   public void removeInvoiceBetween2000And2500AndClientDateLessEqualToTwoMonths() {
     Filter filter = new Filter();
 
+    Calendar oneMonthAndADayAgo = Calendar.getInstance();
+    oneMonthAndADayAgo.add(Calendar.MONTH, -1);
+    oneMonthAndADayAgo.add(Calendar.DATE, -1);
+
     Calendar twoMonthsAndADayAgo = Calendar.getInstance();
     twoMonthsAndADayAgo.add(Calendar.MONTH, -2);
     twoMonthsAndADayAgo.add(Calendar.DATE, -1);
-    
+
     Client client1 = new Client(name, date, state);
     Client client2 = new Client(name, twoMonthsAndADayAgo, state);
-    Invoice invoice1 = new Invoice(id, 2500.00, date, client1);
-    Invoice invoice2 = new Invoice(id, 2500.00, date, client2);
+    Invoice invoice1 = new Invoice(id, 2500.00, oneMonthAndADayAgo, client1);
+    Invoice invoice2 = new Invoice(id, 2500.00, oneMonthAndADayAgo, client2);
     Invoice invoice3 = new Invoice(id, 3000.00, date, client1);
     Invoice invoice4 = new Invoice(id, 3000.00, date, client2);
     
