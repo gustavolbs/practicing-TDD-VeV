@@ -1,18 +1,17 @@
 package processador_de_boletos.src;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Fatura {
     
-    private Date data;
+    private String data;
     private Double valor_total;
     private String nome_cliente;
     private String status;
-    private List<Pagamento> pagamentos;
+    private ArrayList<Pagamento> pagamentos;
 
-    Fatura ( Date data, Double valor_total, String nome_cliente) {
+    Fatura ( String data, Double valor_total, String nome_cliente) {
         this.data = data;
         this.valor_total = valor_total;
         this.nome_cliente = nome_cliente;
@@ -21,17 +20,17 @@ public class Fatura {
     }
 
     Fatura () throws Exception {
-        throw new Exception("Todos os parâmetros (Date data, Double valor_total, String nome_cliente)" + 
+        throw new Exception("Todos os parâmetros (String data, Double valor_total, String nome_cliente)" + 
         "devem ser passados ao construtor");
     }
 
     //getters e setters
 
-    public Date getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(String data) {
         this.data = data;
     }
 
@@ -59,11 +58,11 @@ public class Fatura {
         this.status = status;
     }
 
-    public List<Pagamento> getPagamentos() {
+    public ArrayList<Pagamento> getPagamentos() {
         return pagamentos;
     }
 
-    public void setPagamentos(List<Pagamento> pagamentos) {
+    public void setPagamentos(ArrayList<Pagamento> pagamentos) {
         this.pagamentos = pagamentos;
     }
 
@@ -73,6 +72,16 @@ public class Fatura {
         if (pagamentos != null) {
             this.pagamentos.add(pagamento);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Fatura (" +
+            "data = '" + this.data +
+            "', valor_pago = " + this.valor_total +
+            ", nome_cliente = '" + this.nome_cliente +
+            "', status = '" + this.status +
+            "')";
     }
 
 }

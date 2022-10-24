@@ -1,21 +1,19 @@
 package processador_de_boletos.src;
 
-import java.util.Date;
-
 public class Boleto {
     
     private String codigo;
-    private Date data;
+    private String data;
     private Double valor_pago;
 
-    Boleto (String codigo, Date data, Double valor_pago) {
+    Boleto (String codigo, String data, Double valor_pago) {
         this.codigo = codigo;
         this.data = data;
         this.valor_pago = valor_pago;
     }
 
     Boleto () throws Exception {
-        throw new Exception("Todos os parâmetros (String codigo, Date data, Double valor_pago)" + 
+        throw new Exception("Todos os parâmetros (String codigo, String data, Double valor_pago)" + 
         "devem ser passados ao construtor");
     }
 
@@ -29,11 +27,11 @@ public class Boleto {
         this.codigo = codigo;
     }
 
-    public Date getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(String data) {
         this.data = data;
     }
 
@@ -43,5 +41,14 @@ public class Boleto {
 
     public void setValor_pago(Double valor_pago) {
         this.valor_pago = valor_pago;
+    }
+
+    @Override
+    public String toString() {
+        return "Boleto (" +
+            "codigo = '" + this.codigo + 
+            "', data = '" + this.data +
+            "', valor_pago = " + this.valor_pago +
+            ")";
     }
 }

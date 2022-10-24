@@ -1,31 +1,29 @@
 package processador_de_boletos.src;
 
-import java.util.Date;
-
 public class Pagamento {
     
     private Double valor_pago;
-    private Date data;
+    private String data;
     private String tipo;
 
-    Pagamento (Double valor_pago, Date data, String tipo) {
+    Pagamento (Double valor_pago, String data, String tipo) {
         this.valor_pago = valor_pago;
         this.data = data;
         this.tipo = tipo;
     }
 
     Pagamento () throws Exception {
-        throw new Exception("Todos os parâmetros (Double valor_pago, Date data, String tipo)" + 
+        throw new Exception("Todos os parâmetros (Double valor_pago, String data, String tipo)" + 
         "devem ser passados ao construtor");
     }
 
     //getters e setters
 
-    public Date getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(String data) {
         this.data = data;
     }
     
@@ -43,6 +41,12 @@ public class Pagamento {
 
     public void setValor_pago(Double valor_pago) {
         this.valor_pago = valor_pago;
+    }
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return super.toString();
     }
 
 }

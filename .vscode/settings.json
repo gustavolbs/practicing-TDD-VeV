@@ -1,0 +1,13 @@
+{
+    "java.project.referencedLibraries": {
+        "include": [
+            "lib/**/*.jar",
+            "processador_de_boletos\\lib\\hamcrest-core-1.3.jar",
+            "processador_de_boletos\\lib\\junit-4.13.2.jar"
+        ],
+        "exclude": [
+            "lib/hamcrest-core-1.3.jar",
+            "lib/junit-4.13.2.jar"
+        ]
+    }
+}
