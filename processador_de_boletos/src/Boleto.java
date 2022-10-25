@@ -1,5 +1,9 @@
 package processador_de_boletos.src;
 
+/**
+ * Classe que representa um Boleto, possuindo
+ * código, data e valor
+ */
 public class Boleto {
     
     private String codigo;

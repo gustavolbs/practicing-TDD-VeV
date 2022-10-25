@@ -1,5 +1,10 @@
 package processador_de_boletos.src;
 
+/**
+ * Classe que representa um Pagamento, possuindo
+ * valor pago, data e tipo. É criada toda vez 
+ * que um Boleto é associado a uma Fatura
+ */
 public class Pagamento {
     
     private Double valor_pago;
@@ -43,10 +48,19 @@ public class Pagamento {
         this.valor_pago = valor_pago;
     }
 
+    //métodos
+
+    public Boolean isIgual(Pagamento pagamento) {
+        return (pagamento.toString().equals(this.toString()));
+    }
+
     @Override
     public String toString() {
-        // TODO Auto-generated method stub
-        return super.toString();
+        return "Pagamento ("+
+        "valor_pago = "+this.valor_pago+
+        ", data = '"+this.data+
+        "', tipo = '"+this.tipo+
+        "')";
     }
 
 }

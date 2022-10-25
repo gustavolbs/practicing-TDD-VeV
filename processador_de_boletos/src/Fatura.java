@@ -1,8 +1,11 @@
 package processador_de_boletos.src;
 
 import java.util.ArrayList;
-import java.util.List;
 
+/**
+ * Classe que representa uma Fatura, possuindo 
+ * data, valor total, nome do cliente, status e uma lista de pagamentos
+ */
 public class Fatura {
     
     private String data;
@@ -76,12 +79,17 @@ public class Fatura {
 
     @Override
     public String toString() {
+        String pagamentosToString = "";
+        for (Pagamento pagamento : pagamentos) {
+            pagamentosToString+=" "+pagamento.toString();
+        }
         return "Fatura (" +
             "data = '" + this.data +
             "', valor_pago = " + this.valor_total +
             ", nome_cliente = '" + this.nome_cliente +
             "', status = '" + this.status +
-            "')";
+            "', pagamentos = {"+pagamentosToString+"}"+
+            ")";
     }
 
 }

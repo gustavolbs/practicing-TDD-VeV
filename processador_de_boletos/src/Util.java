@@ -8,6 +8,12 @@ import java.util.regex.Pattern;
 
 public class Util {
 
+    /**
+     * Método para verificar se uma String recebida pode 
+     * ser convertida em Double
+     * @param valor
+     * @return
+     */
     public static Boolean isDouble(String valor) {
         Boolean result = true;
 
@@ -23,6 +29,12 @@ public class Util {
         return result;
     }
 
+    /**
+     * Método que verifica se uma String possui apenas 
+     * caracteres alfanuméricos
+     * @param valor
+     * @return
+     */
     public static Boolean verificaString(String valor) {
 
         Pattern pattern = Pattern.compile("^[A-Za-z0-9 ]+$");
@@ -32,6 +44,12 @@ public class Util {
         return result;
     }
 
+    /**
+     * Método que verifica se uma String que representa 
+     * uma data está no formato adequado (dd-MM-yyyy)
+     * @param data
+     * @return
+     */
     public static Boolean verificaData(String data) {
         Boolean result = true;
 

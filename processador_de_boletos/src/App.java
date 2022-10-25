@@ -6,15 +6,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * Classe responsável pela execução do programa
+ */
 public class App {
 
+    //Um mapa contendo todos os boletos registrados
     private static Map<String, Boleto> boletos = new HashMap<>();
+
+    //Uma lista contendo todas as faturas registradas
     private static List<Fatura> faturas = new ArrayList<Fatura>();
     
     public static void main(String[] args) {
         
         System.out.println("\n### Bem vindo(a) ao Processador de Boletos ###\n");
 
+        //loop princiapl do pragrama
         main: while (true) {
             String menu = menu();
             menu: switch (menu) {
@@ -55,6 +62,10 @@ public class App {
         }
     }
 
+    /**
+     * Método responsável pela exibição do Menu principal
+     * @return
+     */
     private static String menu() {
         Scanner input = new Scanner(System.in);
 
@@ -72,6 +83,10 @@ public class App {
         return menu;
     }
 
+    /**
+     * Método responsável pela exibição do sub-menu de registro de Boletos
+     * @return
+     */
     private static void novoBoleto() {
         Scanner input = new Scanner(System.in);
 
@@ -96,12 +111,12 @@ public class App {
         String valor_pago = input.nextLine().trim();
 
         if (!Util.verificaString(codigo)) {
-            aviso("\n# Código informado inválido");
+            aviso("Código informado inválido");
             return;
         }
 
         if (!Util.verificaData(data)) {
-            aviso("\n# Data informada inválida");
+            aviso("Data informada inválida");
             return;
         }
 
@@ -114,11 +129,15 @@ public class App {
         if (!boletos.containsKey(boleto.getCodigo())) {
             boletos.put(boleto.getCodigo(), boleto);
         } else {
-            aviso("Código de boleto já Registrado!");
+            aviso("Código de boleto já Registrado");
         }
 
     }
 
+    /**
+     * Método responsável pela exibição do mapa de Boletos
+     * @return
+     */
     private static void verBoletos() {
 
         if (!boletos.isEmpty()) {
@@ -126,10 +145,14 @@ public class App {
                 System.out.println("\n" + boleto.toString());
             }
         } else {
-            aviso("Ainda não há Boletos Registrados!");
+            aviso("Ainda não há Boletos Registrados");
         }
     }
 
+    /**
+     * Método responsável pela exibição do sub-menu de registro de Faturas
+     * @return
+     */
     private static void novaFatura() {
         Scanner input = new Scanner(System.in);
 
@@ -159,12 +182,12 @@ public class App {
         }
 
         if (!Util.isDouble(valor_total)) {
-            System.out.println("Valor informado inválido!");
+            aviso("Valor informado inválido");
             return;
         }
         
         if (!Util.verificaString(nome_cliente)) {
-            aviso("Nome informado inválido!");
+            aviso("Nome informado inválido");
             return;
         }
 
@@ -172,24 +195,35 @@ public class App {
         faturas.add(fatura);
     }
 
+    /**
+     * Método responsável pela exibição da lista de Faturas
+     * @return
+     */
     private static void verFaturas() {
         if (!faturas.isEmpty()) {
             for (Fatura fatura: faturas) {
                 System.out.println("\n" + fatura.toString());
             }
         } else {
-            aviso("Ainda não há Faturas Registradas!");
+            aviso("Ainda não há Faturas Registradas");
         }
     }
 
+    /**
+     * Método responsável pela exibição do sub-menu de adição de Pagamentos a Faturas
+     * @return
+     */
     private static void adicionarPagamentos() {
+
+        //checa se a lista de faturas está vazia
         if (faturas.isEmpty()) {
-            aviso("Ainda não há Faturas Registradas!");
+            aviso("Ainda não há Faturas Registradas");
             return;
         }
 
+        //checa se o mapa de boletos está vazio
         if (boletos.isEmpty()) {
-            aviso("Ainda não há Boletos Registrados!");
+            aviso("Ainda não há Boletos Registrados");
             return;
         }
 
@@ -199,6 +233,7 @@ public class App {
 
         int contador = 0;
 
+        //exibe uma lista contendo todas as faturas PENDENTES
         for (Fatura fatura : faturas) {
             if (fatura.getStatus().equals("PENDENTE")) {
                 System.out.println(contador + ") " + fatura.toString());
@@ -216,17 +251,11 @@ public class App {
         
         Fatura fatura = faturas.get(index);
 
-        if (fatura.getStatus().equals("PAGA")) {
-            return;
-        }
-
         addPagamento: while (true) {
             System.out.println("\nEscolha o código de um Boleto para adicionar à Fatura " + index + ":\n");
 
             for (Boleto boleto : boletos.values()) {
-                if (!fatura.getPagamentos().contains(boleto.getCodigo())) {
-                    System.out.println(boleto.toString());
-                }
+                System.out.println(boleto.toString());
             }
 
             input = new Scanner(System.in);
@@ -240,13 +269,16 @@ public class App {
                 Boleto boleto = boletos.get(codigo);
                 Pagamento pagamento = new Pagamento(boleto.getValor_pago(), boleto.getData(), "BOLETO");
 
-                ArrayList<Pagamento> pagamentos = fatura.getPagamentos();
-                pagamentos.add(pagamento);
-
-                fatura.setPagamentos(pagamentos);
+                for (Pagamento pag: fatura.getPagamentos()) {
+                    if(pag.isIgual(pagamento)) {
+                        aviso("Este boleto já foi adicionado como pagamento");
+                        break addPagamento;
+                    }
+                }
+                fatura.addPagamento(pagamento);
 
                 Double valor_pago = 0.0;
-                for (Pagamento pag: pagamentos) {
+                for (Pagamento pag: fatura.getPagamentos()) {
                     valor_pago += pag.getValor_pago();
                 }
 
@@ -270,7 +302,11 @@ public class App {
         
     }
 
+    /**
+     * Método para printar um aviso em um formato padrão
+     * @param aviso
+     */
     private static void aviso(String aviso) {
-        System.out.println("\n# " + aviso.toUpperCase() + " #\n");
+        System.out.println("\n!# " + aviso.toUpperCase() + " #!\n");
     }
 }
