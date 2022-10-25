@@ -1,0 +1,4 @@
+## Avaliação do uso de TDD
+
+O uso de TDD simplifica imensamente a maneira de codificar, colocando como prioridade a funcionalidade de uma feature em detrimento da forma implementada. Assim, conseguimos garantir, primeiramente, que o código funciona antes de ser bonito. Após garantir que o nosso código funciona, conseguimos trabalhar em refactors para promover a consistência e qualidade do código. Em nosso ponto de vista, o TDD tem um custo: tempo. Todavia, o custo que o TDD possui, se mostra razoável, uma vez que estamos tomando um tempo maior para fazer uma "função simples" mas que certamente garantirá que não tomaremos tanto tempo para descobrir e resolver um futuro bug.
+Em nossa avaliação, apesar das dificuldades, foi bom utilizar TDD para garantir a eficácia do projeto. Foi ruim ter que lidar pensando primeiramente nos testes do que a implementação. Foi difícil escrever testes sem codificar antes. Mas em tudo foi proveitoso estudar o TDD.
